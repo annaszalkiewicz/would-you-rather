@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import Home from '../Home/Home';
+import { fetchAllData } from '../../store/actions/data';
+
 import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <p>Would you rather</p>
-    </div>
-  );
+class App extends Component {
+	componentDidMount = () => {
+		this.props.onFetchAllData();
+	};
+
+	render() {
+		return (
+			<div className='App'>
+				<Router>
+					<Route exact path='/' component={Home} />
+				</Router>
+			</div>
+		);
+	}
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		users: state.users,
+		questions: state.questions,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onFetchAllData: () => dispatch(fetchAllData()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
