@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { setAuthUser } from '../../store/actions/auth';
 
@@ -8,16 +9,26 @@ import './Home.scss';
 class Home extends Component {
 	state = {
 		value: '',
+		isLogin: false
 	};
 
 	changeInputHandler = (event) => {
 		this.setState({ value: event.target.value });
+		
 		event.preventDefault();
 		this.props.onSetAuthUser(event.target.value);
+		this.setState(prevState => {
+			return {
+				...prevState,
+				isLogin: true
+			}
+		})
+
 	};
 
 	render() {
-		const { users } = this.props;
+		const { users, authUser } = this.props;
+		const { isLogin } = this.state;
 		return (
 			<>
 				<div className='login-container'>
@@ -48,6 +59,9 @@ class Home extends Component {
 						</div>
 					</div>
 				</div>
+				{isLogin && (
+					<Redirect to={"/" + authUser} />
+				)}
 			</>
 		);
 	}

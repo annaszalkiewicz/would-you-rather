@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
+import Dashboard from '../Dashboard/Dashboard';
 import { fetchAllData } from '../../store/actions/data';
 
 import './App.scss';
@@ -17,6 +18,7 @@ class App extends Component {
 			<div className='App'>
 				<Router>
 					<Route exact path='/' component={Home} />
+					<Route exact path='/:id' component={Dashboard} />
 				</Router>
 			</div>
 		);
