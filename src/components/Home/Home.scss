@@ -1,1 +1,22 @@
-@import '../../sass/variables.scss';
+.login-container {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+.form-row-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
