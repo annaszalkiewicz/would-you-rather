@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Header from '../Header/Header';
 
 class Dashboard extends Component {
   render() {
     return (
-      <div>
-        Dashboard component
-      </div>
+      <>
+      <Header />
+      </>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+  return {
+    authUser: state.auth.authUser,
+    users: state.users
+  }
+}
+
+export default connect(mapStateToProps, null)(Dashboard);

@@ -9,21 +9,24 @@ import './Home.scss';
 class Home extends Component {
 	state = {
 		value: '',
-		isLogin: false
+		isLogin: false,
 	};
 
 	changeInputHandler = (event) => {
 		this.setState({ value: event.target.value });
-		
+
 		event.preventDefault();
-		this.props.onSetAuthUser(event.target.value);
-		this.setState(prevState => {
+
+		const currentUser = Object.values(this.props.users).filter(
+			(user) => user.id === event.target.value
+		);
+		this.props.onSetAuthUser(currentUser[0]);
+		this.setState((prevState) => {
 			return {
 				...prevState,
-				isLogin: true
-			}
-		})
-
+				isLogin: true,
+			};
+		});
 	};
 
 	render() {
@@ -59,9 +62,7 @@ class Home extends Component {
 						</div>
 					</div>
 				</div>
-				{isLogin && (
-					<Redirect to={"/" + authUser} />
-				)}
+				{isLogin && <Redirect to={`/${authUser.id}`} />}
 			</>
 		);
 	}
@@ -76,7 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onSetAuthUser: (id) => dispatch(setAuthUser(id)),
+		onSetAuthUser: (user) => dispatch(setAuthUser(user)),
 	};
 };
 

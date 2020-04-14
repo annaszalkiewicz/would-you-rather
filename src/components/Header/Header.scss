@@ -1,0 +1,31 @@
+@import '../../sass/variables.scss';
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+.header-left {
+  h1 {
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+}
+.header-right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.header-avatar {
+  width: 30px;
+  height: 30px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: $shadow;
+  }
+}
