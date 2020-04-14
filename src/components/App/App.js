@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import Leaderboard from '../Leaderboard/Leaderboard';
+import NewQuestion from '../NewQuestion/NewQuestion';
 import { fetchAllData } from '../../store/actions/data';
 
 import './App.scss';
@@ -19,6 +21,8 @@ class App extends Component {
 				<Router>
 					<Route exact path='/' component={Home} />
 					<Route exact path='/:id' component={Dashboard} />
+					<Route exact path='/leaderboard' component={Leaderboard} />
+					<Route exact path='/new-question' component={NewQuestion} />
 				</Router>
 			</div>
 		);
