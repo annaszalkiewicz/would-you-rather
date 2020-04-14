@@ -1,4 +1,4 @@
-import { SET_AUTH_USER, LOG_OUT_USER } from './actionsTypes';
+import { SET_AUTH_USER, LOG_OUT_USER, GET_ANSWERED_QUESTIONS } from './actionsTypes';
 
 export const setAuthUser = id => {
 	return {
@@ -10,5 +10,12 @@ export const setAuthUser = id => {
 export const logoutUser = () => {
 	return {
 		type: LOG_OUT_USER
+	}
+}
+
+export const getAnsweredQuestions = questions => {
+	return {
+		type: GET_ANSWERED_QUESTIONS,
+		questions
 	}
 }

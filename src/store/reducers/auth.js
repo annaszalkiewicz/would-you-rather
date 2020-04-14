@@ -1,4 +1,4 @@
-import { SET_AUTH_USER, LOG_OUT_USER } from '../actions/actionsTypes';
+import { SET_AUTH_USER, LOG_OUT_USER, GET_ANSWERED_QUESTIONS } from '../actions/actionsTypes';
 
 const auth = (state = {}, action) => {
 	switch (action.type) {
@@ -11,8 +11,16 @@ const auth = (state = {}, action) => {
 		case LOG_OUT_USER:
 			return {
 				...state,
-				authUser: {}
+				authUser: {},
+				answered: []
 			}
+
+		case GET_ANSWERED_QUESTIONS:
+			return {
+				...state,
+				answered: action.questions
+			}
+		
 		default:
 			return state;
 	}

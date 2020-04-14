@@ -35,7 +35,7 @@ class Header extends Component {
 						<img src={`${authUser.avatarURL}`} alt={`${authUser.name}`} />
 					</div>
 					<button className='header-button' onClick={this.handleOpenCloseModal}>
-						<Icon path={mdiChevronDown} size={1} />
+						<Icon path={mdiChevronDown} size="1rem" />
 					</button>
 					<Modal isOpen={this.state.showModal}>
 						<div
