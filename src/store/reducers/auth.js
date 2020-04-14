@@ -1,4 +1,4 @@
-import { SET_AUTH_USER } from '../actions/actionsTypes';
+import { SET_AUTH_USER, LOG_OUT_USER } from '../actions/actionsTypes';
 
 const auth = (state = {}, action) => {
 	switch (action.type) {
@@ -8,6 +8,11 @@ const auth = (state = {}, action) => {
 				authUser: action.id
 			}
 
+		case LOG_OUT_USER:
+			return {
+				...state,
+				authUser: {}
+			}
 		default:
 			return state;
 	}
