@@ -1,6 +1,6 @@
-import sarahImg from '../img/girl-2120196_640.jpg';
-import tylerImg from '../img/man-657869_640.jpg';
-import johnImg from '../img/man-3803551_640.jpg';
+import sarahImg from '../img/avatar-3.png';
+import tylerImg from '../img/avatar-1.png';
+import johnImg from '../img/avatar-2.png';
 
 let users = {
   sarahedo: {
