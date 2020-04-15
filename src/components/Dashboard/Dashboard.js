@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 import Header from '../Header/Header';
-import {
-	getAnsweredQuestions,
-	getUnansweredQuestions,
-} from '../../store/actions/auth';
+import Question from '../Question/Question';
+// import {
+// 	getAnsweredQuestions,
+// 	getUnansweredQuestions,
+// } from '../../store/actions/auth';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
+	state = {
+		answered: [],
+		unanswered: [],
+	};
 	componentDidMount = () => {
 		const answeredQuestionsId = Object.keys(this.props.authUser.answers);
 
@@ -20,23 +26,41 @@ class Dashboard extends Component {
 		const unanswered = Object.values(this.props.questions)
 			.filter((question) => !answeredQuestionsId.includes(question.id))
 			.sort((a, b) => (b.timestamp = a.timestamp));
-		console.log(unanswered);
 
-		this.props.onGetAnsweredQuestions(answered);
-		this.props.onGetUnansweredQuestions(unanswered);
+		this.setState((prevState) => {
+			return {
+				...prevState,
+				answered: answered,
+				unanswered: unanswered,
+			};
+		});
+
+		// this.props.onGetAnsweredQuestions(answered);
+		// this.props.onGetUnansweredQuestions(unanswered);
 	};
 	render() {
+		const { answered, unanswered } = this.state;
 		return (
 			<>
 				<Header />
-				<Tabs>
-					<TabList>
-						<Tab>Unanswered Questions</Tab>
-						<Tab>Answered Questions</Tab>
-					</TabList>
-					<TabPanel>Unanswered Questions</TabPanel>
-					<TabPanel>Answere Questions</TabPanel>
-				</Tabs>
+				<div className='tabs-container'>
+					<Tabs>
+						<TabList>
+							<Tab>Unanswered Questions</Tab>
+							<Tab>Answered Questions</Tab>
+						</TabList>
+						<TabPanel>
+							{unanswered.map((question) => {
+								return <Question question={question} key={question.id} />;
+							})}
+						</TabPanel>
+						<TabPanel>
+							{answered.map((question) => {
+								return <Question question={question} key={question.id} />;
+							})}
+						</TabPanel>
+					</Tabs>
+				</div>
 			</>
 		);
 	}
@@ -52,13 +76,13 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onGetAnsweredQuestions: (questions) =>
-			dispatch(getAnsweredQuestions(questions)),
-		onGetUnansweredQuestions: (questions) =>
-			dispatch(getUnansweredQuestions(questions)),
-	};
-};
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		onGetAnsweredQuestions: (questions) =>
+// 			dispatch(getAnsweredQuestions(questions)),
+// 		onGetUnansweredQuestions: (questions) =>
+// 			dispatch(getUnansweredQuestions(questions)),
+// 	};
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, null)(Dashboard);
