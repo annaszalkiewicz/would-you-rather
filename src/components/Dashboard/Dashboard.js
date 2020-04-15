@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -85,4 +86,4 @@ const mapStateToProps = (state) => {
 // 	};
 // };
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default withRouter(connect(mapStateToProps, null)(Dashboard));

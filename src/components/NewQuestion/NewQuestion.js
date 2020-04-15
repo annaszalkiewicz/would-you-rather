@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './NewQuestion.scss';
 
 class NewQuestion extends Component {
@@ -11,4 +12,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+export default withRouter(NewQuestion);

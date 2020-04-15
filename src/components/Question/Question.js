@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Question.scss';
 
-class AnsweredQuestions extends Component {
+class Question extends Component {
 	render() {
 		const { question } = this.props;
 		return (
@@ -22,4 +22,4 @@ class AnsweredQuestions extends Component {
 	}
 }
 
-export default AnsweredQuestions;
+export default Question;

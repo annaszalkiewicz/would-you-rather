@@ -17,9 +17,9 @@ class Nav extends Component {
     return (
       <nav className="nav">
         <NavLink to={`/${authUser.id}`} className="nav-link">Dashboard</NavLink>
-        <NavLink exact to='/new-question' className="nav-link">New Question</NavLink>
-        <NavLink exact to='/leaderboard' className="nav-link">Leaderboard</NavLink>
-        <NavLink exact to='/' className="nav-link" onClick={this.logout}>Logout</NavLink>
+        <NavLink to='/new-question' className="nav-link">New Question</NavLink>
+        <NavLink to='/leaderboard' className="nav-link">Leaderboard</NavLink>
+        <NavLink to='/' className="nav-link" onClick={this.logout}>Logout</NavLink>
       </nav>
     );
   }

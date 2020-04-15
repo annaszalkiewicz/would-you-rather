@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
@@ -17,16 +17,27 @@ class App extends Component {
 
 	render() {
 		return (
-			<Router>
-				<div className='App'>
-					<Switch>
-						<Route exact path='/' component={Home} />
-						<Route exact path='/:id' component={Dashboard} />
-						<Route exact path='/leaderboard' component={Leaderboard} />
-						<Route exact path='/new-question' component={NewQuestion} />
-					</Switch>
-				</div>
-			</Router>
+			<div className='App'>
+				<Switch>
+					<Route
+						exact
+						path={process.env.PUBLIC_URL + '/'}
+						component={Home}
+					/>
+					<Route
+						path={process.env.PUBLIC_URL + '/:id'}
+						component={Dashboard}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/leaderboard`}
+						component={Leaderboard}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/new-question`}
+						component={NewQuestion}
+					/>
+				</Switch>
+			</div>
 		);
 	}
 }
@@ -44,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

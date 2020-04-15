@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './Leaderboard.scss';
 
 class Leaderboard extends Component {
   render() {
     return (
       <div>
-        Leaderboard component
+        <h1>Leaderboard component</h1>
       </div>
     );
   }
 }
 
-export default Leaderboard;
+export default withRouter(Leaderboard);

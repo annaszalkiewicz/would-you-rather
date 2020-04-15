@@ -15,10 +15,6 @@ class Header extends Component {
 		showModal: false,
 	};
 
-	componentDidMount = () => {
-		console.log(this.props.authUser.avatarURL);
-	};
-
 	handleOpenCloseModal = () => {
 		this.setState({ showModal: !this.state.showModal ? true : false });
 	};
