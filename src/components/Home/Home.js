@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 
+import { fetchAllData } from '../../store/actions/data';
 import { setAuthUser } from '../../store/actions/auth';
 
 import './Home.scss';
@@ -10,6 +11,10 @@ class Home extends Component {
 	state = {
 		value: '',
 		isLogin: false,
+	};
+
+	componentDidMount = () => {
+		this.props.onFetchAllData();
 	};
 
 	changeInputHandler = (event) => {
@@ -62,7 +67,7 @@ class Home extends Component {
 						</div>
 					</div>
 				</div>
-				{isLogin && <Redirect to={`/${authUser.id}`} />}
+				{isLogin && <Redirect to={`/dashboard`} />}
 			</>
 		);
 	}
@@ -71,6 +76,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
 	return {
 		users: state.users,
+		questions: state.questions,
 		authUser: state.auth.authUser,
 	};
 };
@@ -78,6 +84,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSetAuthUser: (user) => dispatch(setAuthUser(user)),
+		onFetchAllData: () => dispatch(fetchAllData())
 	};
 };
 

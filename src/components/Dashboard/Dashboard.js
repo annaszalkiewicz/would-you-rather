@@ -6,10 +6,6 @@ import 'react-tabs/style/react-tabs.css';
 
 import Header from '../Header/Header';
 import Question from '../Question/Question';
-// import {
-// 	getAnsweredQuestions,
-// 	getUnansweredQuestions,
-// } from '../../store/actions/auth';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -35,14 +31,12 @@ class Dashboard extends Component {
 				unanswered: unanswered,
 			};
 		});
-
-		// this.props.onGetAnsweredQuestions(answered);
-		// this.props.onGetUnansweredQuestions(unanswered);
 	};
+
 	render() {
 		const { answered, unanswered } = this.state;
 		return (
-			<>
+			<div id="dashbboard">
 				<Header />
 				<div className='tabs-container'>
 					<Tabs>
@@ -52,17 +46,17 @@ class Dashboard extends Component {
 						</TabList>
 						<TabPanel>
 							{unanswered.map((question) => {
-								return <Question question={question} key={question.id} />;
+								return ( <Question question={question} key={question.id} /> );
 							})}
 						</TabPanel>
 						<TabPanel>
 							{answered.map((question) => {
-								return <Question question={question} key={question.id} />;
+								return (<Question question={question} key={question.id} />);
 							})}
 						</TabPanel>
 					</Tabs>
 				</div>
-			</>
+			</div>
 		);
 	}
 }
@@ -77,13 +71,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-// const mapDispatchToProps = (dispatch) => {
-// 	return {
-// 		onGetAnsweredQuestions: (questions) =>
-// 			dispatch(getAnsweredQuestions(questions)),
-// 		onGetUnansweredQuestions: (questions) =>
-// 			dispatch(getUnansweredQuestions(questions)),
-// 	};
-// };
-
-export default withRouter(connect(mapStateToProps, null)(Dashboard));
+export default withRouter(connect(mapStateToProps)(Dashboard));

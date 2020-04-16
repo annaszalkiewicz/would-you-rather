@@ -1,58 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import NewQuestion from '../NewQuestion/NewQuestion';
-import { fetchAllData } from '../../store/actions/data';
 
 import './App.scss';
 
-class App extends Component {
-	componentDidMount = () => {
-		this.props.onFetchAllData();
-	};
-
-	render() {
-		return (
-			<div className='App'>
+const App = ({location}) => (
+			<div className='App' id="app">
 				<Switch>
 					<Route
 						exact
-						path={process.env.PUBLIC_URL + '/'}
+						path={`${process.env.PUBLIC_URL}/`}
 						component={Home}
+						key={location.pathname}
 					/>
 					<Route
-						path={process.env.PUBLIC_URL + '/:id'}
+						exact
+						path={`${process.env.PUBLIC_URL}/dashboard/`}
 						component={Dashboard}
+						key={location.pathname}
 					/>
 					<Route
+						exact
 						path={`${process.env.PUBLIC_URL}/leaderboard`}
 						component={Leaderboard}
+						key={location.pathname}
 					/>
 					<Route
-						path={`${process.env.PUBLIC_URL}/new-question`}
+						exact
+						path={`${process.env.PUBLIC_URL}/add`}
 						component={NewQuestion}
+						key={location.pathname}
+					/>
+					<Route 
+						exact
+						path={`${process.env.PUBLIC_URL}/questions/:id`}
 					/>
 				</Switch>
 			</div>
 		);
-	}
-}
 
-const mapStateToProps = (state) => {
-	return {
-		users: state.users,
-		questions: state.questions,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onFetchAllData: () => dispatch(fetchAllData()),
-	};
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(App);
