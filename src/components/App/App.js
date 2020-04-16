@@ -5,6 +5,7 @@ import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import NewQuestion from '../NewQuestion/NewQuestion';
+import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 import './App.scss';
 
@@ -38,6 +39,8 @@ const App = ({location}) => (
 					<Route 
 						exact
 						path={`${process.env.PUBLIC_URL}/questions/:id`}
+						component={QuestionDetails}
+						key={location.pathname}
 					/>
 				</Switch>
 			</div>
