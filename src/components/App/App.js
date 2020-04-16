@@ -19,7 +19,7 @@ const App = ({location}) => (
 					/>
 					<Route
 						exact
-						path={`${process.env.PUBLIC_URL}/dashboard/`}
+						path={`${process.env.PUBLIC_URL}/dashboard`}
 						component={Dashboard}
 						key={location.pathname}
 					/>

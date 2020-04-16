@@ -12,10 +12,9 @@ class Nav extends Component {
 	};
 
 	render() {
-		const { authUser } = this.props;
 		return (
 			<nav className='nav'>
-				<NavLink exact to={`dashboard/${authUser.id}`} className='nav-link'>
+				<NavLink exact to='/dashboard' className='nav-link'>
 					Dashboard
 				</NavLink>
 				<NavLink exact to='/add' className='nav-link'>
@@ -32,16 +31,10 @@ class Nav extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		authUser: state.auth.authUser,
-	};
-};
-
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onLogoutUser: () => dispatch(logoutUser()),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(null, mapDispatchToProps)(Nav);

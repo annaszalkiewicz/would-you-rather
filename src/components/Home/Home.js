@@ -35,7 +35,7 @@ class Home extends Component {
 	};
 
 	render() {
-		const { users, authUser } = this.props;
+		const { users } = this.props;
 		const { isLogin } = this.state;
 		return (
 			<>
