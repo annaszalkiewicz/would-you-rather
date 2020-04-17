@@ -1,4 +1,4 @@
-import { GET_USERS } from '../actions/actionsTypes';
+import { GET_USERS, ADD_QUESTION_TO_USER } from '../actions/actionsTypes';
 
 const users = (state = {}, action) => {
 	switch (action.type) {
@@ -7,6 +7,12 @@ const users = (state = {}, action) => {
         ...state, 
         ...action.users 
 			};
+
+		case ADD_QUESTION_TO_USER:
+			return {
+				...state,
+				[action.author]: action.id
+			}
 
 		default:
 			return state;

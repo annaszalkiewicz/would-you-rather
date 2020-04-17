@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import './NewQuestion.scss';
+import { connect } from 'react-redux';
+
+import { saveNewQuestion } from '../../store/actions/questions.js';
 import Header from '../Header/Header';
+import './NewQuestion.scss';
 
 class NewQuestion extends Component {
 
@@ -14,8 +17,14 @@ class NewQuestion extends Component {
     this.setState({[e.target.id]: e.target.value})
   }
   submitForm = e => {
+    const { optionOneText, optionTwoText } = this.state;
+    const author = this.props.auth.id;
+
     e.preventDefault();
-    console.log('Submitted form');
+    console.log(this.state.optionOneText, this.state.optionTwoText);
+    this.props.onSaveNewQuestion(optionOneText, optionTwoText,  author)
+
+    console.log(author)
   }
 	render() {
 		return (
@@ -27,11 +36,11 @@ class NewQuestion extends Component {
 					<form className='newQuestion-form' onSubmit={this.submitForm}>
 						<div className='newQuestion-form-row'>
 							<label htmlFor='optionOneText'>Enter option one text</label>
-							<input type='text' name='optionOneText' id='optionOneText' value={this.state.optionOneText} onChange={this.inputChangeHandler} />
+							<input type='text' name='optionOneText' id='optionOneText' value={this.state.optionOneText} minLength={5} onChange={this.inputChangeHandler} />
 						</div>
 						<div className='newQuestion-form-row'>
 							<label htmlFor='optionTwoText'>Enter option two text</label>
-							<input type='text' name='optionTwoText' id='optionTwoText' value={this.state.optionTwoText} onChange={this.inputChangeHandler} />
+							<input type='text' name='optionTwoText' id='optionTwoText' value={this.state.optionTwoText} minLength={5} onChange={this.inputChangeHandler} />
 						</div>
 						<div className='newQuestion-form-row'>
 							<input type='submit' value='Submit' />
@@ -43,4 +52,16 @@ class NewQuestion extends Component {
 	}
 }
 
-export default withRouter(NewQuestion);
+const mapStateToProps = state => {
+  return {
+    auth: state.auth.authUser
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSaveNewQuestion: (optionOne, optionTwo, author) => dispatch(saveNewQuestion(optionOne, optionTwo, author))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewQuestion));

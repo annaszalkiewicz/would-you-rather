@@ -1,4 +1,4 @@
-import { GET_USERS } from './actionsTypes';
+import { GET_USERS, ADD_QUESTION_TO_USER } from './actionsTypes';
 
 export const getUsers = (users) => {
 	return {
@@ -6,3 +6,12 @@ export const getUsers = (users) => {
 		users,
 	};
 };
+
+export const addQuestionToUser = ({id, author}) => {
+	return {
+		type: ADD_QUESTION_TO_USER,
+		id,
+		author
+	}
+}
+
