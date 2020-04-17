@@ -21,10 +21,16 @@ class NewQuestion extends Component {
     const author = this.props.auth.id;
 
     e.preventDefault();
-    console.log(this.state.optionOneText, this.state.optionTwoText);
-    this.props.onSaveNewQuestion(optionOneText, optionTwoText,  author)
 
-    console.log(author)
+    const question = {
+      optionOneText: optionOneText,
+      optionTwoText: optionTwoText,
+      author: author
+    }
+
+    this.props.onSaveNewQuestion(question);
+
+    console.log(question);
   }
 	render() {
 		return (
@@ -60,7 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveNewQuestion: (optionOne, optionTwo, author) => dispatch(saveNewQuestion(optionOne, optionTwo, author))
+    onSaveNewQuestion: (question) => dispatch(saveNewQuestion(question))
   }
 }
 

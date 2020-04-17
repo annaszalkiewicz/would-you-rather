@@ -16,11 +16,11 @@ export const addQuestion = question => {
   }
 }
 
-export const saveNewQuestion = (optionOne, optionTwo, author) => {
+export const saveNewQuestion = (question) => {
   return dispatch => {
-    return _saveQuestion(optionOne, optionTwo, author).then((optionOne, optionTwo, author) => {
-      dispatch(addQuestion(optionOne, optionTwo, author));
-      dispatch(addQuestionToUser(optionOne, optionTwo, author));
+    return _saveQuestion(question).then(question => {
+      dispatch(addQuestion(question));
+      dispatch(addQuestionToUser(question));
     })
   }
 }
