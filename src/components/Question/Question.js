@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { setQuestionStatus } from '../../store/actions/data';
 import './Question.scss';
 
 class Question extends Component {
@@ -21,13 +23,19 @@ class Question extends Component {
 		Object.values(users).filter((user) => {
 			return question.author === user.id ? this.setState({author: user.name}) : '';
 		})
+
+		this.props.onSetQuestionStatus(this.props.isAnswered)
 	};
+
+	componentDidUpdate = () => {
+		this.props.onSetQuestionStatus(this.props.isAnswered)
+	}
 
 	render() {
 		const { question } = this.props;
 		const { author } = this.state;
 		return (
-			<Link to={`/questions/${question.id}`} className='question'>
+			<Link to={{pathname: `/questions/${question.id}`}} className='question'>
 				<div className='question-heading'>
 					<h2>{author} asks:</h2>
 				</div>
@@ -52,4 +60,10 @@ const mapStateToProps = (state) => {
 		users: state.users,
 	};
 };
-export default connect(mapStateToProps, null)(Question);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onSetQuestionStatus: status => dispatch(setQuestionStatus(status))
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Question);

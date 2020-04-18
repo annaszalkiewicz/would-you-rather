@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
@@ -39,7 +40,7 @@ const App = ({location}) => (
 					<Route 
 						exact
 						path={`${process.env.PUBLIC_URL}/questions/:id`}
-						component={QuestionDetails}
+						render={QuestionDetails}
 						key={location.pathname}
 					/>
 				</Switch>

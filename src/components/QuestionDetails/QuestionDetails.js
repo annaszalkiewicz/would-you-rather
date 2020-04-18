@@ -12,10 +12,12 @@ class QuestionDetails extends Component {
 
   componentDidMount = () => {
     const questionID = window.location.pathname.slice(11);
-    Object.values(this.props.questions).filter(question => {
-      return question.id === questionID ? this.setState({currentQuestion: question}) : '';
+    const currentQuestion = Object.values(this.props.questions).filter(question => {
+      return question.id === questionID;
     })
-    console.log(this.props.auth.answers === questionID);
+    console.log(questionID);
+    console.log(typeof(currentQuestion) );
+    
     
   }
 
@@ -23,6 +25,12 @@ class QuestionDetails extends Component {
     return (
       <>
         <Header />
+        {this.props.isAnswered && (
+          <div>This question has been answered</div>
+        )}
+        {!this.props.isAnswered && (
+          <div>This question has not been answered</div>
+        )}
       </>
     );
   }
@@ -32,7 +40,8 @@ const mapStateToProps = state => {
   return {
     auth: state.auth.authUser,
     questions: state.questions,
-    users: state.users
+    users: state.users,
+    isAnswered: state.data.isAnswered
   }
 }
 export default withRouter(connect(mapStateToProps, null)(QuestionDetails));
