@@ -1,6 +1,7 @@
 import { GET_QUESTIONS,  ADD_QUESTION } from './actionsTypes';
 import { addQuestionToUser } from './users.js';
-import { _saveQuestion } from '../../data/_DATA.js';
+import { fetchAllData } from './data';
+import { _saveQuestion, _saveQuestionAnswer } from '../../data/_DATA.js';
 
 export const getQuestions = questions => {
   return {
@@ -22,5 +23,12 @@ export const saveNewQuestion = (question) => {
       dispatch(addQuestion(question));
       dispatch(addQuestionToUser(question));
     })
+  }
+}
+
+export const saveAnswer = ({authedUser, qid, answer}) => {
+  return dispatch => {
+    return _saveQuestionAnswer({authedUser, qid, answer}).then(() => dispatch(fetchAllData())   
+    )
   }
 }

@@ -3,26 +3,36 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../Header/Header';
+import { saveAnswer } from '../../store/actions/questions';
 
 class QuestionDetails extends Component {
 	state = {
-		value: null,
-	};
+    value: null,
+    questionID: window.location.pathname.slice(11)
+  };
+  
+  // componentDidMount = () => {
+  //   this.setState({ questionID: window.location.pathname.slice(11) })
+
+  // }
 
 	handleChange = (e) => {
 		this.setState({ value: e.target.value });
 	};
 
-	submitNewQuestion = (e) => {
-		console.log(this.state.value);
-		e.preventDefault();
+	submitNewAnswer = (e) => {
+    const authedUser = this.props.auth.id;
+    const qid = this.state.questionID;
+    const answer = this.state.value;
+
+    e.preventDefault();
+    this.props.onSaveAnswer({ authedUser, qid, answer })
 	};
 
 	render() {
-		const questionID = window.location.pathname.slice(11);
 		const currentQuestion = Object.values(this.props.questions).filter(
-			(question) => {
-				return question.id === questionID;
+			(question) => {        
+				return question.id === this.state.questionID;
 			}
 		);
 		const currentAuthor = Object.values(this.props.users).filter(
@@ -48,7 +58,7 @@ class QuestionDetails extends Component {
 								<h3>Would you rather</h3>
 								<form
 									className='question-form'
-									onSubmit={this.submitNewQuestion}
+									onSubmit={this.submitNewAnswer}
 								>
 									<div className='question-form-row'>
 										<input
@@ -98,4 +108,10 @@ const mapStateToProps = (state) => {
 		isAnswered: state.data.isAnswered,
 	};
 };
-export default withRouter(connect(mapStateToProps, null)(QuestionDetails));
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSaveAnswer: (answer) => dispatch(saveAnswer(answer))
+  }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QuestionDetails));
