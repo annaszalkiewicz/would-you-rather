@@ -34,7 +34,7 @@ class Leaderboard extends Component {
 				<main className='leaderboard'>
 					{leaderboard.map((user) => {
 						return (
-							<div className='leaderboard-card'>
+							<div className='leaderboard-card' key={user.id}>
 								<div className='leaderboard-left'>
 									<div className='leaderboard-card'>
 										<img src={user.avatar} alt={user.name} />
