@@ -1,13 +1,18 @@
 @import '../../../sass/variables.scss';
 
 .heading-one {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: $raleway;
-    font-weight: $medium;
+    font-weight: bold;
     color: $primaryColor;
     text-transform: uppercase;
 }
 .question-mark-rotated {
   display: inline-block;
   transform: rotate(180deg);
+}
+@media screen and (min-width: 768px) {
+  .heading-one {
+    font-size: 2rem;
+  }
 }
