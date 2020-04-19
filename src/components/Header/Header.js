@@ -22,24 +22,41 @@ class Header extends Component {
 
 	render() {
 		const { authUser } = this.props;
+		const modal = {
+			content: {
+				width: '90%',
+				maxWidth: '15rem',
+				position: 'absolute',
+				top: '0px',
+				right: '0px',
+				height: '400px',
+				left: 'unset',
+			},
+		};
+		const nameStyle = {
+			display: window.innerWidth >= 1280 ? 'none' : '',
+		};
 		return (
 			<header className='header'>
 				<div className='header-left'>
-					<HeadingOne />
+					<HeadingOne className='' style={{ textAlign: 'left' }} />
 				</div>
 				<div className='header-right'>
+					{window.innerWidth >= 1280 && (
+						<div className='header-name'>Welcome, {authUser.name}</div>
+					)}
 					<div className='header-avatar'>
 						<img src={`${authUser.avatarURL}`} alt={`${authUser.name}`} />
 					</div>
 					<button className='header-button' onClick={this.handleOpenCloseModal}>
-						<Icon path={mdiChevronDown} size="1rem" />
+						<Icon path={mdiChevronDown} size='1rem' />
 					</button>
-					<Modal isOpen={this.state.showModal}>
+					<Modal isOpen={this.state.showModal} style={modal}>
 						<div
 							className='modal-container'
 							onClick={this.handleOpenCloseModal}
 						>
-							<h2>Welcome, {authUser.name}</h2>
+							<h2 style={nameStyle}>Welcome, {authUser.name}</h2>
 							<Nav />
 						</div>
 					</Modal>
