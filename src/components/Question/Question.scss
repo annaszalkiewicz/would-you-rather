@@ -1,0 +1,57 @@
+@import '../../sass/variables.scss';
+
+.question {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: $shadow;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 5px;
+  background: white;
+  transition: $transition;
+  &:hover, &:focus {
+    box-shadow: $darkShadow;
+  }
+}
+.question-heading {
+  width: 100%;
+  border-bottom: $border;
+  h2 {
+    font-size: 1rem;
+  font-weight: bold;
+  }
+}
+.question-details {
+  display: flex;
+  width: 100%;
+  padding: 2rem 0 1rem 0;
+}
+.question-details-left {
+  width: 40%;
+  border-right: solid 0.5px $lightGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 6rem;
+    height: auto;
+  }
+
+}
+.question-details-right {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    font-size: 1rem;
+    color: $primaryColor;
+    margin: 0;
+  }
+
+}

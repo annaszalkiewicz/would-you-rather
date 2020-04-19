@@ -1,0 +1,21 @@
+@import '../../../sass/variables.scss';
+
+.primary-button {
+  background-image: $gradient;
+  color: white;
+  font-weight: 400;
+  padding: 0.5rem;
+  border: none;
+  border-radius: $radius;
+  transition: $transition;
+  cursor: pointer;
+  &:hover, &:focus {
+    box-shadow: $darkShadow;
+    background-image: $lightGradient;
+  }
+}
+@media screen and (min-width: 640px) {
+  .primary-button {
+    padding: 0.5rem 1rem;
+  }
+}

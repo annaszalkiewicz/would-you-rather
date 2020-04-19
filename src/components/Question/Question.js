@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { setQuestionStatus } from '../../store/actions/data';
 import './Question.scss';
+import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
 
 class Question extends Component {
 	state = {
@@ -32,10 +33,10 @@ class Question extends Component {
 	}
 
 	render() {
-		const { question } = this.props;
+		const { question, card } = this.props;
 		const { author } = this.state;
 		return (
-			<Link to={{pathname: `/questions/${question.id}`}} className='question'>
+			<Link to={{pathname: `/questions/${question.id}`}} className='question' style={card} role="button">
 				<div className='question-heading'>
 					<h2>{author} asks:</h2>
 				</div>
@@ -46,7 +47,7 @@ class Question extends Component {
 					<div className='question-details-right'>
 						<h3>Would you rather</h3>
 						<p>{question.optionOne.text}</p>
-						<button>Answer poll</button>
+						<PrimaryButton>Answer question</PrimaryButton>
 					</div>
 				</div>
 			</Link>

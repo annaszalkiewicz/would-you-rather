@@ -16,5 +16,9 @@ $veryLightGrey: #f2f2f2;
 /* MISCELLANEOUS */
 
 $shadow: 0 0 3px $lightGrey;
+$darkShadow: 0 0 5px grey;
 $border: solid 0.5px black;
-$gradient: linear-gradient(to bottom right, $primaryColor, $secondaryColor, $lightGreen);
+$transition: all 0.3s ease;
+$gradient: linear-gradient(to bottom right, $primaryColor, $secondaryColor);
+$lightGradient: linear-gradient(to bottom right, $secondaryColor, $lightGreen);
+$radius: 5px;
