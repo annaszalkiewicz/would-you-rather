@@ -1,0 +1,13 @@
+@import '../../../sass/variables.scss';
+
+.heading-one {
+    font-size: 1rem;
+    font-family: $raleway;
+    font-weight: $medium;
+    color: $primaryColor;
+    text-transform: uppercase;
+}
+.question-mark-rotated {
+  display: inline-block;
+  transform: rotate(180deg);
+}

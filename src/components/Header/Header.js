@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import Nav from './Nav/Nav';
 
 import './Header.scss';
+import HeadingOne from '../ui/HeadingOne/HeadingOne';
 
 Modal.setAppElement('#root');
 
@@ -24,7 +25,7 @@ class Header extends Component {
 		return (
 			<header className='header'>
 				<div className='header-left'>
-					<h1>Would You Rather</h1>
+					<HeadingOne />
 				</div>
 				<div className='header-right'>
 					<div className='header-avatar'>

@@ -6,6 +6,7 @@ import { fetchAllData } from '../../store/actions/data';
 import { setAuthUser } from '../../store/actions/auth';
 
 import './Home.scss';
+import HeadingOne from '../ui/HeadingOne/HeadingOne';
 
 class Home extends Component {
 	state = {
@@ -41,7 +42,7 @@ class Home extends Component {
 			<>
 				<div className='login-container'>
 					<header className='login-header'>
-						<h1>Would you rather</h1>
+						<HeadingOne />
 					</header>
 					<h2>Answer Questions - Create new polls</h2>
 					<p>Please log in to continue</p>
