@@ -34,20 +34,20 @@ class Leaderboard extends Component {
 				<main className='leaderboard'>
 					{leaderboard.map((user) => {
 						return (
-							<div className='leaderboard-card' key={user.id}>
-								<div className='leaderboard-left'>
-									<div className='leaderboard-card'>
-										<img src={user.avatar} alt={user.name} />
-									</div>
+							<div
+								className='question question-details leaderboard-card'
+								key={user.id}
+							>
+								<div className='question-details-left leaderboard-left'>
+									<h2>{user.name}</h2>
+									<img src={user.avatar} alt={user.name} />
 								</div>
 								<div className='leaderboard-middle'>
-									<h2>{user.name}</h2>
 									<p>Questions answered: {user.answers}</p>
-									<p>Questions created:{user.questions} </p>
+									<p>Questions created: {user.questions}</p>
 								</div>
 								<div className='leaderboard-right'>
-									<p>Score:</p>
-									<p>{user.score}</p>
+									<p>Score: {user.score}</p>
 								</div>
 							</div>
 						);

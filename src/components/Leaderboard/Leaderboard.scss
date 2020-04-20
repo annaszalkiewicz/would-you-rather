@@ -1,0 +1,44 @@
+@import '../../sass/variables.scss';
+
+.leaderboard-card {
+  &:nth-child(1) {
+    border: solid 10px #c8a900;
+  }
+  &:nth-child(2) {
+    border: solid 10px silver;
+  }
+  &:nth-child(3) {
+    border: solid 10px #926501;
+  }
+}
+.leaderboard-left {
+  border-right: none;
+  padding-bottom: 1rem;
+  flex-direction: column;
+}
+.leaderboard-middle {
+  border-top: $border;
+  border-bottom: $border;
+  margin: 1rem 0;
+}
+.leaderboard-right {
+  font-weight: bold;
+}
+@media screen and (min-width: 640px) {
+  .leaderboard-card {
+    flex-direction: row;
+  }
+  .leaderboard-left {
+    width: 35%;
+  }
+  .leaderboard-middle {
+    width: 45%;
+    border-top: none;
+    border-bottom: none;
+    border-left: $border;
+    border-right: $border;
+  }
+  .leaderboard-right {
+    width: 20%;
+  }
+}
