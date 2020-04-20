@@ -4,17 +4,14 @@ import { connect } from 'react-redux';
 
 import Header from '../Header/Header';
 import { saveAnswer } from '../../store/actions/questions';
+import {  setQuestionStatus, fetchAllData } from '../../store/actions/data';
+import './QuestionDetails.scss';
 
 class QuestionDetails extends Component {
 	state = {
     value: null,
     questionID: window.location.pathname.slice(11)
   };
-  
-  // componentDidMount = () => {
-  //   this.setState({ questionID: window.location.pathname.slice(11) })
-
-  // }
 
 	handleChange = (e) => {
 		this.setState({ value: e.target.value });
@@ -26,7 +23,10 @@ class QuestionDetails extends Component {
     const answer = this.state.value;
 
     e.preventDefault();
-    this.props.onSaveAnswer({ authedUser, qid, answer })
+    this.props.onSaveAnswer({ authedUser, qid, answer });
+		this.props.onSetQuestionStatus(true);
+		this.props.onFetchAllData();
+
 	};
 
 	render() {
@@ -42,7 +42,8 @@ class QuestionDetails extends Component {
 		return (
 			<>
 				<Header />
-				{!this.props.isAnswered && (
+				
+		
 					<div className='question'>
 						<div className='question-heading'>
 							<h2>{currentAuthor[0].name} asks:</h2>
@@ -69,7 +70,7 @@ class QuestionDetails extends Component {
 											checked={this.state.value === 'optionOne'}
 											onChange={this.handleChange}
 										/>
-										<label htmlFor='optionOneText'>
+										<label htmlFor='optionOneText' className="question-form-label">
 											{currentQuestion[0].optionOne.text}
 										</label>
 									</div>
@@ -82,18 +83,18 @@ class QuestionDetails extends Component {
 											checked={this.state.value === 'optionTwo'}
 											onChange={this.handleChange}
 										/>
-										<label htmlFor='optionOneText'>
+										<label htmlFor='optionOneText' className="question-form-label">
 											{currentQuestion[0].optionTwo.text}
 										</label>
 									</div>
-									<div className='question-form-row'>
-										<input type='submit' value='Vote' />
+									<div className='question-form-row question-form-button'>
+										<input type="submit" value="Vote" className="primary-button" />
 									</div>
 								</form>
 							</div>
 						</div>
 					</div>
-				)}
+			
 				{this.props.isAnswered && <div>This question has been answered</div>}
 			</>
 		);
@@ -111,7 +112,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveAnswer: (answer) => dispatch(saveAnswer(answer))
+		onSaveAnswer: (answer) => dispatch(saveAnswer(answer)),
+		onSetQuestionStatus: status => dispatch(setQuestionStatus(status)),
+		onFetchAllData: () => dispatch(fetchAllData())
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QuestionDetails));

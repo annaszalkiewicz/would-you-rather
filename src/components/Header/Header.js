@@ -5,9 +5,8 @@ import { mdiChevronDown } from '@mdi/js';
 import Modal from 'react-modal';
 
 import Nav from './Nav/Nav';
-
-import './Header.scss';
 import HeadingOne from '../ui/HeadingOne/HeadingOne';
+import './Header.scss';
 
 Modal.setAppElement('#root');
 
