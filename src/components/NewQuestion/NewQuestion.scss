@@ -1,0 +1,15 @@
+@import '../../sass/variables.scss';
+
+.question-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .question-form-row {
+   input {
+     width: 100%;
+     padding: 0.5rem;
+     margin-top: 0.5rem;
+   }
+  }
+}

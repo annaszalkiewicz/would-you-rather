@@ -29,19 +29,18 @@ class NewQuestion extends Component {
 		};
 
 		this.props.onSaveNewQuestion(question).then(() => {
-      return this.setState({ questionAdded: true });
-    })
-		
+			return this.setState({ questionAdded: true });
+		});
 	};
 	render() {
 		return (
 			<>
 				<Header />
-				<main className='newQuestion'>
-					<h2 className='newQuestion-heading'>Create new poll</h2>
-					<h3 className='newQuestion-text'>Would you rather...</h3>
-					<form className='newQuestion-form' onSubmit={this.submitForm}>
-						<div className='newQuestion-form-row'>
+				<main className='question'>
+					<h2 className='question-heading'>Create new poll</h2>
+					<h3 className='question-text'>Would you rather...</h3>
+					<form className='question-form' onSubmit={this.submitForm}>
+						<div className='question-form-row'>
 							<label htmlFor='optionOneText'>Enter option one text</label>
 							<input
 								type='text'
@@ -52,7 +51,7 @@ class NewQuestion extends Component {
 								onChange={this.inputChangeHandler}
 							/>
 						</div>
-						<div className='newQuestion-form-row'>
+						<div className='question-form-row'>
 							<label htmlFor='optionTwoText'>Enter option two text</label>
 							<input
 								type='text'
@@ -63,8 +62,8 @@ class NewQuestion extends Component {
 								onChange={this.inputChangeHandler}
 							/>
 						</div>
-						<div className='newQuestion-form-row'>
-							<input type='submit' value='Submit' />
+						<div className='question-form-row'>
+								<input type='submit' value='Submit' className="primary-button" />
 						</div>
 					</form>
 				</main>
