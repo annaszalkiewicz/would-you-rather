@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
@@ -9,41 +9,39 @@ import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 import './App.scss';
 
-const App = ({location}) => (
-			<div className='App' id="app">
-				<Switch>
+class App extends Component {
+
+	render() {
+		return (
+			<div className='App' id='app'>
 					<Route
 						exact
 						path={`${process.env.PUBLIC_URL}/`}
 						component={Home}
-						key={location.pathname}
 					/>
 					<Route
 						exact
 						path={`${process.env.PUBLIC_URL}/dashboard`}
 						component={Dashboard}
-						key={location.pathname}
 					/>
 					<Route
 						exact
 						path={`${process.env.PUBLIC_URL}/leaderboard`}
 						component={Leaderboard}
-						key={location.pathname}
 					/>
 					<Route
 						exact
 						path={`${process.env.PUBLIC_URL}/add`}
 						component={NewQuestion}
-						key={location.pathname}
 					/>
-					<Route 
+					<Route
 						exact
 						path={`${process.env.PUBLIC_URL}/questions/:id`}
-						render={QuestionDetails}
-						key={location.pathname}
+						component={QuestionDetails}
 					/>
-				</Switch>
 			</div>
 		);
+	}
+}
 
 export default withRouter(App);

@@ -3,21 +3,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-// import { setQuestionStatus } from '../../store/actions/data';
 import Header from '../Header/Header';
 import Question from '../Question/Question';
 
-// import 'react-tabs/style/react-tabs.css';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
-
 	state = {
 		answered: [],
 		unanswered: [],
 	};
-	
+
 	componentDidMount = () => {
+		this.forceUpdate();
 		const answeredQuestionsId = Object.keys(this.props.authUser.answers);
 
 		const answered = Object.values(this.props.questions)
@@ -36,19 +34,24 @@ class Dashboard extends Component {
 			};
 		});
 	};
+	componentWillUnmount = () => {
+		document.getElementById('container').innerHTML = null;
+		console.log(document.getElementById('container').innerHTML);
+	};
 
 	render() {
-		const { answered, unanswered } = this.state;
+		const { unanswered, answered } = this.state;
+
 		const cardYellow = {
-			borderTop: 'solid 5px #1BC495'
-		}
+			borderTop: 'solid 5px #1BC495',
+		};
 		const cardGreen = {
-			borderTop: 'solid 5px #138564'
-		}
+			borderTop: 'solid 5px #138564',
+		};
 		return (
-			<div id="dashbboard">
+			<div id='dashbboard'>
 				<Header />
-				<div className='tabs-container'>
+				<main className='tabs-container' id='container'>
 					<Tabs>
 						<TabList>
 							<Tab>Unanswered Questions</Tab>
@@ -56,16 +59,30 @@ class Dashboard extends Component {
 						</TabList>
 						<TabPanel>
 							{unanswered.map((question) => {
-								return ( <Question question={question} key={question.id} card={cardYellow} /> );
+								return (
+									<Question
+										question={question}
+										key={question.id}
+										card={cardYellow}
+										isAnswered={false}
+									/>
+								);
 							})}
 						</TabPanel>
 						<TabPanel>
 							{answered.map((question) => {
-								return (<Question question={question} key={question.id} card={cardGreen} />);
+								return (
+									<Question
+										question={question}
+										key={question.id}
+										card={cardGreen}
+										isAnswered={true}
+									/>
+								);
 							})}
 						</TabPanel>
 					</Tabs>
-				</div>
+				</main>
 			</div>
 		);
 	}
@@ -74,17 +91,9 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
 	return {
 		authUser: state.auth.authUser,
-		answered: state.auth.answered,
-		unanswered: state.auth.unanswered,
 		users: state.users,
 		questions: state.questions,
 	};
 };
-
-// const mapDispatchToProps = (dispatch) => {
-// 	return {
-// 		onSetQuestionStatus: status => dispatch(setQuestionStatus(status))
-// 	};
-// };
 
 export default withRouter(connect(mapStateToProps)(Dashboard));

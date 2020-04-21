@@ -3,9 +3,9 @@ import { GET_USERS, ADD_QUESTION_TO_USER } from '../actions/actionsTypes';
 const users = (state = {}, action) => {
 	switch (action.type) {
 		case GET_USERS:
-			return { 
-        ...state, 
-        ...action.users 
+			return {
+				...state,
+				...action.users,
 			};
 
 		case ADD_QUESTION_TO_USER:
@@ -13,9 +13,9 @@ const users = (state = {}, action) => {
 				...state,
 				[action.author]: {
 					...state[action.author],
-					questions: [...state[action.author].questions, action.id]
-				}
-			}
+					questions: [...state[action.author].questions, action.id],
+				},
+			};
 
 		default:
 			return state;

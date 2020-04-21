@@ -3,10 +3,18 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './reducers/rootReducer';
 
-const enhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+// Configure store with Redux Dev Tools
+const enhancers =
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 const configureStore = () => {
-	return createStore(rootReducer, compose(applyMiddleware(thunk), enhancers))
+	return createStore(rootReducer, compose(applyMiddleware(thunk), enhancers));
 };
+
+//Configure store without Redux Dev Tools
+
+// const configureStore = () => {
+// 	return createStore(rootReducer, applyMiddleware(thunk));
+// };
 
 export default configureStore;

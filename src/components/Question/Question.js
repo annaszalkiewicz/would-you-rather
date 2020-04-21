@@ -1,56 +1,92 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
-import { setQuestionStatus } from '../../store/actions/data';
-import './Question.scss';
 import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
+import './Question.scss';
 
 class Question extends Component {
 	state = {
 		avatar: null,
-		author: null
-		// currentQuestion: {
-		// 	userName: this.state.author,
-		// 	userAvatar: this.state.avatar,
-		// 	timestamp: this.props.question.timestamp
-		// }
-	}
+		author: null,
+		showDetails: false,
+		isAnswered: false,
+	};
 	componentDidMount = () => {
 		const { users, question } = this.props;
 		Object.values(users).filter((user) => {
-			return question.author === user.id ? this.setState({avatar: user.avatarURL}) : '';
+			return question.author === user.id
+				? this.setState({ avatar: user.avatarURL })
+				: '';
 		});
 		Object.values(users).filter((user) => {
-			return question.author === user.id ? this.setState({author: user.name}) : '';
-		})
-
-		this.props.onSetQuestionStatus(this.props.isAnswered)
+			return question.author === user.id
+				? this.setState({ author: user.name })
+				: '';
+		});
+		console.log('Rendered');
 	};
 
-	componentDidUpdate = () => {
-		this.props.onSetQuestionStatus(this.props.isAnswered)
-	}
-
 	render() {
-		const { question, card } = this.props;
+		const { question, card, isAnswered } = this.props;
 		const { author } = this.state;
 		return (
-			<Link to={{pathname: `/questions/${question.id}`}} className='question' style={card} role="button">
-				<div className='question-heading'>
-					<h2>{author} asks:</h2>
-				</div>
-				<div className='question-details'>
-					<div className='question-details-left'>
-						<img src={this.state.avatar} alt={question.author} />
+			<>
+				{!isAnswered && (
+					<Link
+						to={{
+							pathname: `/questions/${question.id}`,
+							state: {
+								isAnswered: false,
+							},
+						}}
+						className='question'
+						style={card}
+						role='button'
+					>
+						<div className='question-heading'>
+							<h2>{author} asks:</h2>
 						</div>
-					<div className='question-details-right'>
-						<h3>Would you rather</h3>
-						<p>{question.optionOne.text}</p>
-						<PrimaryButton>Answer question</PrimaryButton>
-					</div>
-				</div>
-			</Link>
+						<div className='question-details'>
+							<div className='question-details-left'>
+								<img src={this.state.avatar} alt={question.author} />
+							</div>
+							<div className='question-details-right'>
+								<h3>Would you rather</h3>
+								<p>{question.optionOne.text}</p>
+								<PrimaryButton>Answer question</PrimaryButton>
+							</div>
+						</div>
+					</Link>
+				)}
+				{isAnswered && (
+					<Link
+						to={{
+							pathname: `/questions/${question.id}`,
+							state: {
+								isAnswered: true,
+							},
+						}}
+						className='question'
+						style={card}
+						role='button'
+					>
+						<div className='question-heading'>
+							<h2>{author} asks:</h2>
+						</div>
+						<div className='question-details'>
+							<div className='question-details-left'>
+								<img src={this.state.avatar} alt={question.author} />
+							</div>
+							<div className='question-details-right'>
+								<h3>Would you rather</h3>
+								<p>{question.optionOne.text}</p>
+								<PrimaryButton>View Results</PrimaryButton>
+							</div>
+						</div>
+					</Link>
+				)}
+			</>
 		);
 	}
 }
@@ -59,12 +95,8 @@ const mapStateToProps = (state) => {
 	return {
 		auth: state.auth.authUser,
 		users: state.users,
+		questions: state.questions,
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		onSetQuestionStatus: status => dispatch(setQuestionStatus(status))
-	}
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Question);
+export default withRouter(connect(mapStateToProps, null)(Question));
