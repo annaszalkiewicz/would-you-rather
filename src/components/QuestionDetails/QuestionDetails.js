@@ -12,6 +12,7 @@ class QuestionDetails extends Component {
 	state = {
 		value: null,
 		questionID: window.location.pathname.slice(11),
+		isAnswered: false
 	};
 
 	handleChange = (e) => {
@@ -26,7 +27,7 @@ class QuestionDetails extends Component {
 		e.preventDefault();
 		this.props.onSaveAnswer({ authedUser, qid, answer });
 		this.props.onFetchAllData();
-		this.props.history.push('/dashboard');
+		this.setState({ isAnswered: true });
 	};
 
 	render() {
@@ -44,7 +45,7 @@ class QuestionDetails extends Component {
 			<>
 				<Header />
 
-				{location.state.isAnswered === false && (
+				{(location.state.isAnswered === false && !this.state.isAnswered) && (
 					<div className='question'>
 						<div className='question-heading'>
 							<h2>{currentAuthor[0].name} asks:</h2>
@@ -104,7 +105,7 @@ class QuestionDetails extends Component {
 						</div>
 					</div>
 				)}
-				{location.state.isAnswered === true && (
+				{(location.state.isAnswered === true || this.state.isAnswered) && (
 					<div className='question'>
 						<div className='question-heading'>
 							<h2>{currentAuthor[0].name} asks:</h2>
