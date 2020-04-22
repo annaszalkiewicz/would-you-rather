@@ -23,21 +23,20 @@ class App extends Component {
 							exact
 							path={`${process.env.PUBLIC_URL}/dashboard`}
 							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <Dashboard />}
-							// component={Dashboard}
 						/>
 						<Route
 							exact
 							path={`${process.env.PUBLIC_URL}/leaderboard`}
-							component={Leaderboard}
+							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <Leaderboard />}
 						/>
 						<Route
 							exact
 							path={`${process.env.PUBLIC_URL}/add`}
-							component={NewQuestion}
+							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <NewQuestion />}
 						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/questions/:id`}
-							component={QuestionDetails}
+							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <QuestionDetails />}
 						/>
 			</div>
 		);
