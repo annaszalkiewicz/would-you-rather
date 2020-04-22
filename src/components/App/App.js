@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter, Redirect } from 'react-router-dom';
+import { Route, withRouter, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
@@ -9,35 +9,56 @@ import NewQuestion from '../NewQuestion/NewQuestion';
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
 
 import './App.scss';
+import Page404 from '../Page404/Page404';
 
 class App extends Component {
-	componentDidMount = () => {
-		console.log(this.props.auth);
-	};
 
 	render() {
 		return (
 			<div className='App' id='app'>
-						<Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
-						<Route
-							exact
-							path={`${process.env.PUBLIC_URL}/dashboard`}
-							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <Dashboard />}
-						/>
-						<Route
-							exact
-							path={`${process.env.PUBLIC_URL}/leaderboard`}
-							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <Leaderboard />}
-						/>
-						<Route
-							exact
-							path={`${process.env.PUBLIC_URL}/add`}
-							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <NewQuestion />}
-						/>
-						<Route
-							path={`${process.env.PUBLIC_URL}/questions/:id`}
-							render={() => this.props.auth === undefined ? <Redirect to="/" /> : <QuestionDetails />}
-						/>
+				<Switch>
+					<Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
+					<Route
+						exact
+						path={`${process.env.PUBLIC_URL}/dashboard`}
+						render={() =>
+							this.props.auth === undefined ? (
+								<Redirect to='/' />
+							) : (
+								<Dashboard />
+							)
+						}
+					/>
+					<Route
+						exact
+						path={`${process.env.PUBLIC_URL}/leaderboard`}
+						render={() =>
+							this.props.auth === undefined ? (
+								<Redirect to='/' />
+							) : (
+								<Leaderboard />
+							)
+						}
+					/>
+					<Route
+						exact
+						path={`${process.env.PUBLIC_URL}/add`}
+						render={() =>
+							this.props.auth === undefined ? (
+								<Redirect to='/' />
+							) : (
+								<NewQuestion />
+							)
+						}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/questions/:id`}
+						render={() =>
+							this.props.auth === undefined ? <Page404 /> : <QuestionDetails />
+						}
+					/>
+					<Route path='*' render={() => <Page404 />} />
+				</Switch>
 			</div>
 		);
 	}
@@ -45,7 +66,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth.authUser
+		auth: state.auth.authUser,
+		questions: state.questions,
 	};
 };
 
