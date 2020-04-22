@@ -21,7 +21,7 @@ class Dashboard extends Component {
 	handleClick = () => {
 		this.setState({ selectedIndex: 0 });
 	};
-	
+
 	render() {
 		const cardYellow = {
 			borderTop: 'solid 5px #1BC495',
@@ -38,13 +38,13 @@ class Dashboard extends Component {
 
 		const answers = Object.keys(this.props.users[authedUser].answers);
 
-		const unanswered = Object.values(questions).filter(
-			(question) => !answers.includes(question.id)
-		);
+		const unanswered = Object.values(questions)
+			.filter((question) => !answers.includes(question.id))
+			.sort((a, b) => b.timestamp - a.timestamp);
 
-		const answered = Object.values(questions).filter((question) =>
-			answers.includes(question.id)
-		);
+		const answered = Object.values(questions)
+			.filter((question) => answers.includes(question.id))
+			.sort((a, b) => b.timestamp - a.timestamp);
 
 		return (
 			<div id='dashbboard'>
