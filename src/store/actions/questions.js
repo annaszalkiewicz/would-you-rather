@@ -28,7 +28,7 @@ export const saveNewQuestion = (question) => {
 
 export const saveAnswer = ({ authedUser, qid, answer }) => {
 	return (dispatch) => {
-		return _saveQuestionAnswer({ authedUser, qid, answer }).then(() =>
+		return _saveQuestionAnswer({ authedUser, qid, answer }).finally(() =>
 			dispatch(fetchAllData())
 		);
 	};

@@ -9,60 +9,29 @@ import Question from '../Question/Question';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
-	state = {
-		answered: [],
-		unanswered: [],
-	};
-
-	componentDidMount = () => {
-		this.getData();
-	};
-
-	getData = () => {
-		const answeredQuestionsId = Object.keys(this.props.authUser.answers);
-
-		const answered = Object.values(this.props.questions)
-			.filter((question) => answeredQuestionsId.includes(question.id))
-			.sort((a, b) => b.timestamp - a.timestamp);
-
-		const unanswered = Object.values(this.props.questions)
-			.filter((question) => !answeredQuestionsId.includes(question.id))
-			.sort((a, b) => b.timestamp - a.timestamp);
-
-		this.setState((prevState) => {
-			return {
-				...prevState,
-				answered: answered,
-				unanswered: unanswered,
-			};
-		});
-	};
-
-	// componentDidUpdate = (prevProps, prevState) => {
-			// if ((prevState.answered !== this.state.answered)&&(prevState.unanswered !== this.state.unanswered)) {
-				// return this.getData();				
-			// }
-	// };
-
-	componentWillUnmount = () => {
-		this.setState(prevState => {
-			return {
-				...prevState,
-				answered: [],
-				unanswered: []
-			}
-		})
-	}
 	render() {
-		const { unanswered, answered } = this.state;
-
 		const cardYellow = {
 			borderTop: 'solid 5px #1BC495',
 		};
 		const cardGreen = {
 			borderTop: 'solid 5px #138564',
 		};
-		console.log(this.state);
+
+		const { questions } = this.props;
+
+		const authedUser = Object.keys(this.props.users)
+			.filter((user) => user === this.props.authUser.id)
+			.join('');
+
+		const answers = Object.keys(this.props.users[authedUser].answers);
+
+		const unanswered = Object.values(questions).filter(
+			(question) => !answers.includes(question.id)
+		);
+
+		const answered = Object.values(questions).filter((question) =>
+			answers.includes(question.id)
+		);
 
 		return (
 			<div id='dashbboard'>

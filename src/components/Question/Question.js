@@ -24,7 +24,6 @@ class Question extends Component {
 				? this.setState({ author: user.name })
 				: '';
 		});
-		console.log('Rendered');
 	};
 
 	render() {
