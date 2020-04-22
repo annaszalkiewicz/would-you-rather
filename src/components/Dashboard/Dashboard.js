@@ -15,7 +15,10 @@ class Dashboard extends Component {
 	};
 
 	componentDidMount = () => {
-		this.forceUpdate();
+		this.getData();
+	};
+
+	getData = () => {
 		const answeredQuestionsId = Object.keys(this.props.authUser.answers);
 
 		const answered = Object.values(this.props.questions)
@@ -24,7 +27,7 @@ class Dashboard extends Component {
 
 		const unanswered = Object.values(this.props.questions)
 			.filter((question) => !answeredQuestionsId.includes(question.id))
-			.sort((a, b) => (b.timestamp = a.timestamp));
+			.sort((a, b) => b.timestamp - a.timestamp);
 
 		this.setState((prevState) => {
 			return {
@@ -34,11 +37,22 @@ class Dashboard extends Component {
 			};
 		});
 	};
-	componentWillUnmount = () => {
-		document.getElementById('container').innerHTML = null;
-		console.log(document.getElementById('container').innerHTML);
-	};
 
+	// componentDidUpdate = (prevProps, prevState) => {
+			// if ((prevState.answered !== this.state.answered)&&(prevState.unanswered !== this.state.unanswered)) {
+				// return this.getData();				
+			// }
+	// };
+
+	componentWillUnmount = () => {
+		this.setState(prevState => {
+			return {
+				...prevState,
+				answered: [],
+				unanswered: []
+			}
+		})
+	}
 	render() {
 		const { unanswered, answered } = this.state;
 
@@ -48,6 +62,8 @@ class Dashboard extends Component {
 		const cardGreen = {
 			borderTop: 'solid 5px #138564',
 		};
+		console.log(this.state);
+
 		return (
 			<div id='dashbboard'>
 				<Header />
