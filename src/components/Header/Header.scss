@@ -40,6 +40,21 @@
   }
 }
 .modal-container {
+  position: relative;
+  .modal-close {
+    position: absolute;
+    top: -0.8rem;
+    right: -0.8rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: $transition;
+    &:hover, &:focus {
+      color: $primaryColor;
+    }
+  }
   h2 {
     color: $primaryColor;
     padding-bottom: 2rem;

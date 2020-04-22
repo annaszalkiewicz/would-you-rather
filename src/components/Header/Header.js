@@ -53,8 +53,8 @@ class Header extends Component {
 					<Modal isOpen={this.state.showModal} style={modal}>
 						<div
 							className='modal-container'
-							onClick={this.handleOpenCloseModal}
 						>
+							<button className="modal-close" onClick={this.handleOpenCloseModal}>X</button>
 							<h2 style={nameStyle}>Welcome, {authUser.name}</h2>
 							<Nav />
 						</div>
