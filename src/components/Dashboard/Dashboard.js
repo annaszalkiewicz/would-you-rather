@@ -70,17 +70,6 @@ class Dashboard extends Component {
 									</Link>
 								</div>
 							)}
-							{unanswered.length === 0 && (
-								<div className='no-more-unanswered'>
-									<h2 className='no-more-answers'>
-										Congratulations! You have answered to all question
-									</h2>
-									<p>Create more polls and answer to new questions!</p>
-									<Link to='/add'>
-										<PrimaryButton>Create new poll</PrimaryButton>
-									</Link>
-								</div>
-							)}
 							{unanswered.map((question) => {
 								return (
 									<Question
