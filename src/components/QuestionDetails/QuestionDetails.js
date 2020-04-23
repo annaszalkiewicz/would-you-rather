@@ -50,9 +50,8 @@ class QuestionDetails extends Component {
 
 		const optionTwoPercentage = Math.round(((optionTwoVotes * 100) / totalVotes));
 
-		const answers = this.props.auth.answers
-
-		const userVote = answers[currentQuestion[0].id]
+		const user = users[this.props.auth.id];
+		const userVote = user.answers[currentQuestion[0].id];	
 		
 		const fillerOneStyle = {
 			width: (optionOnePercentage < 20) ? '20%' : `${optionOnePercentage}%`,
