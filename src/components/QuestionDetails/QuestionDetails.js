@@ -12,7 +12,7 @@ class QuestionDetails extends Component {
 	state = {
 		value: null,
 		questionID: window.location.pathname.slice(11),
-		isAnswered: false
+		isAnswered: false,
 	};
 
 	handleChange = (e) => {
@@ -40,12 +40,25 @@ class QuestionDetails extends Component {
 		const currentAuthor = Object.values(this.props.users).filter(
 			(user) => currentQuestion[0].author === user.id
 		);
+		const optionOneVotes = currentQuestion[0].optionOne.votes.length;
+
+		const optionTwoVotes = currentQuestion[0].optionTwo.votes.length;
+
+		const totalVotes = optionOneVotes + optionTwoVotes;
+
+		const optionOnePercentage = ((optionOneVotes * 100) / totalVotes).toFixed(
+			2
+		);
+
+		const optionTwoPercentage = ((optionTwoVotes * 100) / totalVotes).toFixed(
+			2
+		);
 
 		return (
 			<>
 				<Header />
 
-				{(location.state.isAnswered === false && !this.state.isAnswered) && (
+				{location.state.isAnswered === false && !this.state.isAnswered && (
 					<div className='question'>
 						<div className='question-heading'>
 							<h2>{currentAuthor[0].name} asks:</h2>
@@ -120,8 +133,20 @@ class QuestionDetails extends Component {
 							<div className='question-details-right'>
 								<h3>Would you rather</h3>
 								<div className='question-details-row'>
-									<p>{currentQuestion[0].optionOne.text}</p>
-									<p>{currentQuestion[0].optionTwo.text}</p>
+									<div className='question-votes'>
+										<p>{currentQuestion[0].optionOne.text}</p>
+										<div className='progress-bar voted'>
+											<div className='progress-bar-filler'>{`${optionOnePercentage}%`}</div>
+										</div>
+										<p className='question-votes-details'>{`${optionOneVotes} of ${totalVotes} votes`}</p>
+									</div>
+									<div className='question-votes'>
+										<p>{currentQuestion[0].optionTwo.text}</p>
+										<div className='progress-bar'>
+											<div className='progress-bar-filler'>{`${optionTwoPercentage}%`}</div>
+										</div>
+										<p className='question-votes-details'>{`${optionTwoVotes} of ${totalVotes} votes`}</p>
+									</div>
 								</div>
 							</div>
 						</div>
