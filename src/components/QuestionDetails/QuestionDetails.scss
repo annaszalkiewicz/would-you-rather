@@ -11,3 +11,57 @@
 .question-form-label {
   margin-left: 1rem;
 }
+.question-votes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.progress-bar {
+  width: 120px;
+  height: 1rem;
+  border: $border;
+  border-radius: 3px;
+  position: relative;
+  background: $veryLightGrey;
+  .progress-bar-filler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: grey;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.3rem;
+    color: white;
+  }
+
+}
+.voted {
+  &::after {
+    content: "\2713";
+    font-size: 2rem;
+    font-weight: bold;
+    color: $primaryColor;
+    position: absolute;
+    right: -1.8rem;
+    top: -0.8rem;
+    z-index: 100;
+    display: block;
+  }
+}
+.question-votes-details {
+  font-size: 0.7rem;
+}
+@media screen and (min-width: 640px) {
+  .progress-bar {
+    width: 15rem;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .progress-bar {
+    width: 20rem;
+  }
+}

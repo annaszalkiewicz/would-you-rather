@@ -31,7 +31,7 @@ class QuestionDetails extends Component {
 	};
 
 	render() {
-		const { location } = this.props;
+		const { location, users } = this.props;
 		const currentQuestion = Object.values(this.props.questions).filter(
 			(question) => {
 				return question.id === this.state.questionID;
@@ -46,13 +46,23 @@ class QuestionDetails extends Component {
 
 		const totalVotes = optionOneVotes + optionTwoVotes;
 
-		const optionOnePercentage = ((optionOneVotes * 100) / totalVotes).toFixed(
-			2
-		);
+		const optionOnePercentage = Math.round(((optionOneVotes * 100) / totalVotes));
 
-		const optionTwoPercentage = ((optionTwoVotes * 100) / totalVotes).toFixed(
-			2
-		);
+		const optionTwoPercentage = Math.round(((optionTwoVotes * 100) / totalVotes));
+
+		const answers = this.props.auth.answers
+
+		const userVote = answers[currentQuestion[0].id]
+		
+		const fillerOneStyle = {
+			width: (optionOnePercentage < 20) ? '20%' : `${optionOnePercentage}%`,
+			background: (userVote === 'optionOne') ? '#138564' : 'grey'
+		}
+
+		const fillerTwoStyle = {
+			width: (optionTwoPercentage < 20) ? '20%' : `${optionTwoPercentage}%`,
+			background: (userVote === 'optionTwo') ? '#138564' : 'grey'
+		}
 
 		return (
 			<>
@@ -135,15 +145,15 @@ class QuestionDetails extends Component {
 								<div className='question-details-row'>
 									<div className='question-votes'>
 										<p>{currentQuestion[0].optionOne.text}</p>
-										<div className='progress-bar voted'>
-											<div className='progress-bar-filler'>{`${optionOnePercentage}%`}</div>
+										<div className={(userVote === 'optionOne') ? 'progress-bar voted' : 'progress-bar'}>
+											<div className='progress-bar-filler' style={fillerOneStyle}>{`${optionOnePercentage}%`}</div>
 										</div>
 										<p className='question-votes-details'>{`${optionOneVotes} of ${totalVotes} votes`}</p>
 									</div>
 									<div className='question-votes'>
 										<p>{currentQuestion[0].optionTwo.text}</p>
-										<div className='progress-bar'>
-											<div className='progress-bar-filler'>{`${optionTwoPercentage}%`}</div>
+										<div className={(userVote === 'optionTwo') ? 'progress-bar voted' : 'progress-bar'}>
+											<div className='progress-bar-filler' style={fillerTwoStyle}>{`${optionTwoPercentage}%`}</div>
 										</div>
 										<p className='question-votes-details'>{`${optionTwoVotes} of ${totalVotes} votes`}</p>
 									</div>
