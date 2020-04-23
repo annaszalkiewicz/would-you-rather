@@ -32,33 +32,37 @@ class Header extends Component {
 				left: 'unset',
 			},
 		};
-		const nameStyle = {
-			display: window.innerWidth >= 1280 ? 'none' : '',
-		};
+
 		return (
 			<header className='header'>
 				<div className='header-left'>
 					<HeadingOne className='' style={{ textAlign: 'left' }} />
 				</div>
 				<div className='header-right'>
-					{window.innerWidth >= 1280 && (
-						<div className='header-name'>Welcome, {authUser.name}</div>
-					)}
 					<div className='header-avatar'>
 						<img src={`${authUser.avatarURL}`} alt={`${authUser.name}`} />
 					</div>
 					<button className='header-button' onClick={this.handleOpenCloseModal}>
 						<Icon path={mdiChevronDown} size='1rem' />
 					</button>
-					<Modal isOpen={this.state.showModal} style={modal}>
+					{window.innerWidth < 1024 && (
+						<Modal isOpen={this.state.showModal} style={modal}>
 						<div
 							className='modal-container'
 						>
 							<button className="modal-close" onClick={this.handleOpenCloseModal}>X</button>
-							<h2 style={nameStyle}>Welcome, {authUser.name}</h2>
+							<h2>Welcome, {authUser.name}</h2>
 							<Nav />
 						</div>
 					</Modal>
+					)}
+					{window.innerWidth >=1024 && (
+						<div className="nav-container">
+							<h2>Welcome, {authUser.name}</h2>
+							<Nav />
+						</div>
+					)}
+					
 				</div>
 			</header>
 		);
