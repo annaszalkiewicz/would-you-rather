@@ -22,7 +22,7 @@
     &--selected {
       background: #fff;
       border-color: #aaa;
-      color: black;
+      color: $primaryColor;
       border-radius: 5px 5px 0 0;
     }
 
@@ -61,4 +61,11 @@
 .tabs-container {
   width: 100%;
   padding: 2rem 1rem;
+}
+
+.react-tabs__tab,
+.react-tabs__tab--selected {
+  &:hover, &:focus {
+    color: $secondaryColor;
+  }
 }
