@@ -54,12 +54,14 @@ class QuestionDetails extends Component {
 		const userVote = user.answers[currentQuestion[0].id];	
 		
 		const fillerOneStyle = {
-			width: (optionOnePercentage < 20) ? '20%' : `${optionOnePercentage}%`,
+			width: (window.innerWidth < 640 && optionOnePercentage < 20) ? '20%' : (window.innerWidth >= 640 && window.innerWidth < 1280 && optionOnePercentage < 10) ? '10%' : `${optionOnePercentage}%`,
+			minWidth: '7%',
 			background: (userVote === 'optionOne') ? '#138564' : 'grey'
 		}
 
 		const fillerTwoStyle = {
-			width: (optionTwoPercentage < 20) ? '20%' : `${optionTwoPercentage}%`,
+			width: (window.innerWidth < 640 && optionTwoPercentage < 20) ? '20%' : (window.innerWidth >= 640 && window.innerWidth < 1280 && optionTwoPercentage < 10) ? '10%' : `${optionTwoPercentage}%`,
+			minWidth: '7%',
 			background: (userVote === 'optionTwo') ? '#138564' : 'grey'
 		}
 
