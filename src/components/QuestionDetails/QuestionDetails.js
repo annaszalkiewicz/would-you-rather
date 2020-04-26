@@ -46,24 +46,38 @@ class QuestionDetails extends Component {
 
 		const totalVotes = optionOneVotes + optionTwoVotes;
 
-		const optionOnePercentage = Math.round(((optionOneVotes * 100) / totalVotes));
+		const optionOnePercentage = Math.round((optionOneVotes * 100) / totalVotes);
 
-		const optionTwoPercentage = Math.round(((optionTwoVotes * 100) / totalVotes));
+		const optionTwoPercentage = Math.round((optionTwoVotes * 100) / totalVotes);
 
 		const user = users[this.props.auth.id];
-		const userVote = user.answers[currentQuestion[0].id];	
-		
+		const userVote = user.answers[currentQuestion[0].id];
+
 		const fillerOneStyle = {
-			width: (window.innerWidth < 640 && optionOnePercentage < 20) ? '20%' : (window.innerWidth >= 640 && window.innerWidth < 1280 && optionOnePercentage < 10) ? '10%' : `${optionOnePercentage}%`,
+			width:
+				window.innerWidth < 640 && optionOnePercentage < 20
+					? '20%'
+					: window.innerWidth >= 640 &&
+					  window.innerWidth < 1280 &&
+					  optionOnePercentage < 10
+					? '10%'
+					: `${optionOnePercentage}%`,
 			minWidth: '7%',
-			background: (userVote === 'optionOne') ? '#138564' : 'grey'
-		}
+			background: userVote === 'optionOne' ? '#138564' : 'grey',
+		};
 
 		const fillerTwoStyle = {
-			width: (window.innerWidth < 640 && optionTwoPercentage < 20) ? '20%' : (window.innerWidth >= 640 && window.innerWidth < 1280 && optionTwoPercentage < 10) ? '10%' : `${optionTwoPercentage}%`,
+			width:
+				window.innerWidth < 640 && optionTwoPercentage < 20
+					? '20%'
+					: window.innerWidth >= 640 &&
+					  window.innerWidth < 1280 &&
+					  optionTwoPercentage < 10
+					? '10%'
+					: `${optionTwoPercentage}%`,
 			minWidth: '7%',
-			background: (userVote === 'optionTwo') ? '#138564' : 'grey'
-		}
+			background: userVote === 'optionTwo' ? '#138564' : 'grey',
+		};
 
 		return (
 			<>
@@ -146,15 +160,33 @@ class QuestionDetails extends Component {
 								<div className='question-details-row'>
 									<div className='question-votes'>
 										<p>{currentQuestion[0].optionOne.text}</p>
-										<div className={(userVote === 'optionOne') ? 'progress-bar voted' : 'progress-bar'}>
-											<div className='progress-bar-filler' style={fillerOneStyle}>{`${optionOnePercentage}%`}</div>
+										<div
+											className={
+												userVote === 'optionOne'
+													? 'progress-bar voted'
+													: 'progress-bar'
+											}
+										>
+											<div
+												className='progress-bar-filler'
+												style={fillerOneStyle}
+											>{`${optionOnePercentage}%`}</div>
 										</div>
 										<p className='question-votes-details'>{`${optionOneVotes} of ${totalVotes} votes`}</p>
 									</div>
 									<div className='question-votes'>
 										<p>{currentQuestion[0].optionTwo.text}</p>
-										<div className={(userVote === 'optionTwo') ? 'progress-bar voted' : 'progress-bar'}>
-											<div className='progress-bar-filler' style={fillerTwoStyle}>{`${optionTwoPercentage}%`}</div>
+										<div
+											className={
+												userVote === 'optionTwo'
+													? 'progress-bar voted'
+													: 'progress-bar'
+											}
+										>
+											<div
+												className='progress-bar-filler'
+												style={fillerTwoStyle}
+											>{`${optionTwoPercentage}%`}</div>
 										</div>
 										<p className='question-votes-details'>{`${optionTwoVotes} of ${totalVotes} votes`}</p>
 									</div>

@@ -7,19 +7,17 @@ import Dashboard from '../Dashboard/Dashboard';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import NewQuestion from '../NewQuestion/NewQuestion';
 import QuestionDetails from '../QuestionDetails/QuestionDetails';
-
-import './App.scss';
 import Page404 from '../Page404/Page404';
 
-class App extends Component {
+import './App.scss';
 
+class App extends Component {
 	render() {
 		return (
 			<div className='App' id='app'>
 				<Switch>
 					<Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
 					<Route
-						exact
 						path={`${process.env.PUBLIC_URL}/dashboard`}
 						render={() =>
 							this.props.auth === undefined ? (
@@ -30,7 +28,6 @@ class App extends Component {
 						}
 					/>
 					<Route
-						exact
 						path={`${process.env.PUBLIC_URL}/leaderboard`}
 						render={() =>
 							this.props.auth === undefined ? (
@@ -41,7 +38,6 @@ class App extends Component {
 						}
 					/>
 					<Route
-						exact
 						path={`${process.env.PUBLIC_URL}/add`}
 						render={() =>
 							this.props.auth === undefined ? (

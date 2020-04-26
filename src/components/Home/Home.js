@@ -5,8 +5,9 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { fetchAllData } from '../../store/actions/data';
 import { setAuthUser } from '../../store/actions/auth';
 
-import './Home.scss';
 import HeadingOne from '../ui/HeadingOne/HeadingOne';
+
+import './Home.scss';
 
 class Home extends Component {
 	state = {
@@ -44,29 +45,31 @@ class Home extends Component {
 					<header className='login-header'>
 						<HeadingOne />
 					</header>
-					<h2>Answer Questions - Create new polls</h2>
-					<p>Please log in to continue</p>
-					<div className='form-container'>
-						<div id='form-login' className='form'>
-							<div className='form-row'>
-								<select
-									name='username'
-									id='username'
-									value={this.state.value}
-									onChange={this.changeInputHandler}
-								>
-									<option value='' key='select'>
-										Select a user
-									</option>
-									{Object.keys(users).map((user) => (
-										<option value={users[user].id} key={users[user].id}>
-											{users[user].name}
+					<main>
+						<h2>Answer Questions - Create new polls</h2>
+						<p>Please log in to continue</p>
+						<div className='form-container'>
+							<div id='form-login' className='form'>
+								<div className='form-row'>
+									<select
+										name='username'
+										id='username main'
+										value={this.state.value}
+										onChange={this.changeInputHandler}
+									>
+										<option value='' key='select'>
+											Select a user
 										</option>
-									))}
-								</select>
+										{Object.keys(users).map((user) => (
+											<option value={users[user].id} key={users[user].id}>
+												{users[user].name}
+											</option>
+										))}
+									</select>
+								</div>
 							</div>
 						</div>
-					</div>
+					</main>
 				</div>
 				{isLogin && <Redirect to={`/dashboard`} />}
 			</>
@@ -85,7 +88,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSetAuthUser: (user) => dispatch(setAuthUser(user)),
-		onFetchAllData: () => dispatch(fetchAllData())
+		onFetchAllData: () => dispatch(fetchAllData()),
 	};
 };
 

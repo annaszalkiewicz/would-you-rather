@@ -49,7 +49,7 @@ class Dashboard extends Component {
 		return (
 			<div id='dashbboard'>
 				<Header />
-				<main className='tabs-container' id='container'>
+				<main className='tabs-container'>
 					<Tabs
 						selectedIndex={this.state.selectedIndex}
 						onSelect={this.handleSelect}
