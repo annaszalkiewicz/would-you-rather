@@ -26,17 +26,27 @@ class QuestionDetails extends Component {
 
 		e.preventDefault();
 		this.props.onSaveAnswer({ authedUser, qid, answer });
-		this.props.onFetchAllData();
 		this.setState({ isAnswered: true });
 	};
 
 	render() {
-		const { location, users } = this.props;
-		const currentQuestion = Object.values(this.props.questions).filter(
-			(question) => {
-				return question.id === this.state.questionID;
-			}
-		);
+		const { location, users, questions } = this.props;
+
+		const currentQuestion = Object.values(questions).filter((question) => {
+			return question.id === this.state.questionID;
+		});
+
+		if (currentQuestion[0] === undefined) {
+			return (
+				<div className='not-found'>
+					<h2>Page not found</h2>
+					<PrimaryButton onClick={() => this.props.history.push('/dashboard')}>
+						Go to Dashboard
+					</PrimaryButton>
+				</div>
+			);
+		}
+
 		const currentAuthor = Object.values(this.props.users).filter(
 			(user) => currentQuestion[0].author === user.id
 		);
@@ -82,6 +92,61 @@ class QuestionDetails extends Component {
 		return (
 			<>
 				<Header />
+
+				{(location.state.oldPath !== undefined ||
+					location.state.isAnswered === true ||
+					this.state.isAnswered) && (
+					<div className='question'>
+						<div className='question-heading'>
+							<h2>{currentAuthor[0].name} asks:</h2>
+						</div>
+						<div className='question-details'>
+							<div className='question-details-left'>
+								<img
+									src={currentAuthor[0].avatarURL}
+									alt={currentAuthor[0].name}
+								/>
+							</div>
+							<div className='question-details-right'>
+								<h3>Would you rather</h3>
+								<div className='question-details-row'>
+									<div className='question-votes'>
+										<p>{currentQuestion[0].optionOne.text}</p>
+										<div
+											className={
+												userVote === 'optionOne'
+													? 'progress-bar voted'
+													: 'progress-bar'
+											}
+										>
+											<div
+												className='progress-bar-filler'
+												style={fillerOneStyle}
+											>{`${optionOnePercentage}%`}</div>
+										</div>
+										<p className='question-votes-details'>{`${optionOneVotes} of ${totalVotes} votes`}</p>
+									</div>
+									<div className='question-votes'>
+										<p>{currentQuestion[0].optionTwo.text}</p>
+										<div
+											className={
+												userVote === 'optionTwo'
+													? 'progress-bar voted'
+													: 'progress-bar'
+											}
+										>
+											<div
+												className='progress-bar-filler'
+												style={fillerTwoStyle}
+											>{`${optionTwoPercentage}%`}</div>
+										</div>
+										<p className='question-votes-details'>{`${optionTwoVotes} of ${totalVotes} votes`}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
 
 				{location.state.isAnswered === false && !this.state.isAnswered && (
 					<div className='question'>
@@ -139,58 +204,6 @@ class QuestionDetails extends Component {
 										/>
 									</div>
 								</form>
-							</div>
-						</div>
-					</div>
-				)}
-				{(location.state.isAnswered === true || this.state.isAnswered) && (
-					<div className='question'>
-						<div className='question-heading'>
-							<h2>{currentAuthor[0].name} asks:</h2>
-						</div>
-						<div className='question-details'>
-							<div className='question-details-left'>
-								<img
-									src={currentAuthor[0].avatarURL}
-									alt={currentAuthor[0].name}
-								/>
-							</div>
-							<div className='question-details-right'>
-								<h3>Would you rather</h3>
-								<div className='question-details-row'>
-									<div className='question-votes'>
-										<p>{currentQuestion[0].optionOne.text}</p>
-										<div
-											className={
-												userVote === 'optionOne'
-													? 'progress-bar voted'
-													: 'progress-bar'
-											}
-										>
-											<div
-												className='progress-bar-filler'
-												style={fillerOneStyle}
-											>{`${optionOnePercentage}%`}</div>
-										</div>
-										<p className='question-votes-details'>{`${optionOneVotes} of ${totalVotes} votes`}</p>
-									</div>
-									<div className='question-votes'>
-										<p>{currentQuestion[0].optionTwo.text}</p>
-										<div
-											className={
-												userVote === 'optionTwo'
-													? 'progress-bar voted'
-													: 'progress-bar'
-											}
-										>
-											<div
-												className='progress-bar-filler'
-												style={fillerTwoStyle}
-											>{`${optionTwoPercentage}%`}</div>
-										</div>
-										<p className='question-votes-details'>{`${optionTwoVotes} of ${totalVotes} votes`}</p>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>

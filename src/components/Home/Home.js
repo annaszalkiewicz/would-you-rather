@@ -37,8 +37,9 @@ class Home extends Component {
 	};
 
 	render() {
-		const { users } = this.props;
+		const { users, location } = this.props;
 		const { isLogin } = this.state;
+
 		return (
 			<>
 				<div className='login-container'>
@@ -71,7 +72,18 @@ class Home extends Component {
 						</div>
 					</main>
 				</div>
-				{isLogin && <Redirect to={`/dashboard`} />}
+				{isLogin && (
+					<Redirect
+						to={{
+							pathname: !location.state
+								? '/dashboard'
+								: location.state.from.pathname,
+							state: {
+								oldPath: location.state ? true : false,
+							},
+						}}
+					/>
+				)}
 			</>
 		);
 	}
