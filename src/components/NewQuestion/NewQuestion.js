@@ -63,7 +63,7 @@ class NewQuestion extends Component {
 							/>
 						</div>
 						<div className='question-form-row'>
-								<input type='submit' value='Submit' className="primary-button" />
+							<input type='submit' value='Submit' className='primary-button' />
 						</div>
 					</form>
 				</main>
